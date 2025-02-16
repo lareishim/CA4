@@ -81,7 +81,30 @@ public class ExpenseTracker {
                         System.out.println("Income deleted successfully!");
                         break;
                     case 7:
-                        // Code to list income and expenses for a particular month
+                        System.out.println("Enter year (YYYY): ");
+                        int year = sc.nextInt();
+                        System.out.println("Enter month (MM): ");
+                        int month = sc.nextInt();
+
+                        System.out.println("\n--- Income for " + year + "-" + month + " ---");
+                        List<Income> monthlyIncome = incomeDAO.getIncomesByMonth(year, month);
+                        if (monthlyIncome.isEmpty()) {
+                            System.out.println("No income recorded for this month.");
+                        } else {
+                            for (Income inc : monthlyIncome) {
+                                System.out.println(inc);
+                            }
+                        }
+
+                        System.out.println("\n--- Expenses for " + year + "-" + month + " ---");
+                        List<Expense> monthlyExpenses = expenseDAO.getExpensesByMonth(year, month);
+                        if (monthlyExpenses.isEmpty()) {
+                            System.out.println("No expenses recorded for this month.");
+                        } else {
+                            for (Expense exp : monthlyExpenses) {
+                                System.out.println(exp);
+                            }
+                        }
                         break;
                     case 8:
                         running = false;

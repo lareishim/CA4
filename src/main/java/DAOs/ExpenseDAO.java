@@ -43,6 +43,34 @@ public class ExpenseDAO extends MySQLDao implements ExpenseDaoInterface {
     }
 
     @Override
+    public List<Expense> getExpensesByMonth(int year, int month) throws DAOException {
+        List<Expense> expenses = new ArrayList<>();
+        String query = "SELECT * FROM expenses WHERE YEAR(dateIncurred) = ? AND MONTH(dateIncurred) = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, year);
+            statement.setInt(2, month);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int expenseID = resultSet.getInt("expenseID");
+                String title = resultSet.getString("title");
+                String category = resultSet.getString("category");
+                double amount = resultSet.getDouble("amount");
+                Date dateIncurred = resultSet.getDate("dateIncurred");
+
+                Expense expense = new Expense(expenseID, title, category, amount, dateIncurred);
+                expenses.add(expense);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error retrieving expenses for month: " + e.getMessage());
+        }
+        return expenses;
+    }
+
+    @Override
     public List<Expense> getAllExpenses() throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;

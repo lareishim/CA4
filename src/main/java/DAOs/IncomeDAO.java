@@ -40,6 +40,33 @@ public class IncomeDAO extends MySQLDao implements IncomeDaoInterface {
     }
 
     @Override
+    public List<Income> getIncomesByMonth(int year, int month) throws DAOException {
+        List<Income> incomes = new ArrayList<>();
+        String query = "SELECT * FROM income WHERE YEAR(dateEarned) = ? AND MONTH(dateEarned) = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setInt(1, year);
+            pstmt.setInt(2, month);
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                int incomeID = resultSet.getInt("incomeID");
+                String title = resultSet.getString("title");
+                double amount = resultSet.getDouble("amount");
+                Date dateEarned = resultSet.getDate("dateEarned");
+
+                Income income = new Income(incomeID, title, amount, dateEarned);
+                incomes.add(income);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error retrieving income for month: " + e.getMessage());
+        }
+        return incomes;
+    }
+
+    @Override
     public List<Income> getAllIncomes() throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
