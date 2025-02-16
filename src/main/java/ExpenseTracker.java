@@ -28,7 +28,7 @@ public class ExpenseTracker {
 
                 switch (choice) {
                     case 1:
-                        // Code to show all Expenses
+                        
                         break;
                     case 2:
                         // Code to add an expense
@@ -37,7 +37,7 @@ public class ExpenseTracker {
                         // Code to delete an expense
                         break;
                     case 4:
-                        // Code to show all Income
+
                         break;
                     case 5:
                         // Code to add an income
@@ -55,6 +55,7 @@ public class ExpenseTracker {
                         System.out.println("Invalid choice.");
                 }
             }
+            sc.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
