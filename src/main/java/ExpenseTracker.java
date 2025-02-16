@@ -1,9 +1,12 @@
 import DAOs.ExpenseDAO;
 import DAOs.IncomeDAO;
+import DTOs.Expense;
+import DTOs.Income;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ExpenseTracker {
@@ -28,7 +31,10 @@ public class ExpenseTracker {
 
                 switch (choice) {
                     case 1:
-                        
+                        List<Expense> expenses = expenseDAO.getAllExpenses();
+                        for (Expense exp : expenses) {
+                            System.out.println(exp);
+                        }
                         break;
                     case 2:
                         // Code to add an expense
@@ -37,7 +43,10 @@ public class ExpenseTracker {
                         // Code to delete an expense
                         break;
                     case 4:
-
+                        List<Income> incomes = incomeDAO.getAllIncomes();
+                        for (Income inc : incomes) {
+                            System.out.println(inc);
+                        }
                         break;
                     case 5:
                         // Code to add an income

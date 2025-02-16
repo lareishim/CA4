@@ -49,4 +49,13 @@ public class Income {
     public void setDateEarned(Date dateEarned) {
         this.dateEarned = dateEarned;
     }
+
+    @Override
+    public String toString() {
+        return "Income ID: " + incomeID +
+                ", Title: " + title +
+                ", Amount: $" + amount +
+                ", Date Earned: " + dateEarned;
+    }
+
 }
