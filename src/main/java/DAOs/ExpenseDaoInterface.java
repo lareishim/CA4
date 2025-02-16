@@ -8,5 +8,9 @@ import java.util.List;
 
 public interface ExpenseDaoInterface {
 
+    void addExpense(Expense expense) throws DAOException;
+
+    void deleteExpense(int expenseID) throws DAOException;
+
     List<Expense> getAllExpenses() throws DAOException;
 }

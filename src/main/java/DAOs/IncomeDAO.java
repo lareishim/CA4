@@ -13,6 +13,7 @@ import java.util.List;
 
 public class IncomeDAO extends MySQLDao implements IncomeDaoInterface {
 
+    @Override
     public void addIncome(Income income) throws DAOException {
         String query = "INSERT INTO income (title, amount, dateEarned) VALUES (?, ?, ?)";
         try (Connection connection = this.getConnection();
@@ -26,6 +27,7 @@ public class IncomeDAO extends MySQLDao implements IncomeDaoInterface {
         }
     }
 
+    @Override
     public void deleteIncome(int incomeID) throws DAOException {
         String query = "DELETE FROM income WHERE incomeID = ?";
         try (Connection connection = this.getConnection();

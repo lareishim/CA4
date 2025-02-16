@@ -13,6 +13,35 @@ import java.util.List;
 
 public class ExpenseDAO extends MySQLDao implements ExpenseDaoInterface {
 
+
+    @Override
+    public void addExpense(Expense expense) throws DAOException {
+        String query = "INSERT INTO expenses (title, category, amount, dateIncurred) VALUES (?, ?, ?, ?)";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, expense.getTitle());
+            statement.setString(2, expense.getCategory());
+            statement.setDouble(3, expense.getAmount());
+            statement.setDate(4, new java.sql.Date(expense.getDateIncurred().getTime()));
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Error adding expense: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteExpense(int expenseID) throws DAOException {
+        String query = "DELETE FROM expenses WHERE expenseID = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, expenseID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Error deleting expense: " + e.getMessage());
+        }
+    }
+
     @Override
     public List<Expense> getAllExpenses() throws DAOException {
         Connection connection = null;

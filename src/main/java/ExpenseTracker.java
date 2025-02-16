@@ -38,10 +38,24 @@ public class ExpenseTracker {
                         }
                         break;
                     case 2:
-                        // Code to add an expense
+                        sc.nextLine();
+                        System.out.print("Enter expense title: ");
+                        String expTitle = sc.nextLine();
+                        System.out.print("Enter expense category: ");
+                        String expCategory = sc.nextLine();
+                        System.out.print("Enter expense amount: ");
+                        double expAmount = sc.nextDouble();
+                        sc.nextLine();
+                        Expense newExpense = new Expense(0, expTitle, expCategory, expAmount, new Date());
+                        expenseDAO.addExpense(newExpense);
+                        System.out.println("Expense added successfully!");
                         break;
+
                     case 3:
-                        // Code to delete an expense
+                        System.out.print("Enter expense ID to delete: ");
+                        int expenseID = sc.nextInt();
+                        expenseDAO.deleteExpense(expenseID);
+                        System.out.println("Expense deleted successfully!");
                         break;
                     case 4:
                         List<Income> incomes = incomeDAO.getAllIncomes();
@@ -50,11 +64,12 @@ public class ExpenseTracker {
                         }
                         break;
                     case 5:
+                        sc.nextLine();
                         System.out.print("Enter income title: ");
                         String incTitle = sc.nextLine();
                         System.out.print("Enter income amount: ");
                         double incAmount = sc.nextDouble();
-                        sc.nextLine(); // Consume newline
+                        sc.nextLine();
                         Income newIncome = new Income(0, incTitle, incAmount, new Date());
                         incomeDAO.addIncome(newIncome);
                         System.out.println("Income added successfully!");
