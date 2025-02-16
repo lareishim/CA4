@@ -6,6 +6,7 @@ import DTOs.Income;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,10 +50,20 @@ public class ExpenseTracker {
                         }
                         break;
                     case 5:
-                        // Code to add an income
+                        System.out.print("Enter income title: ");
+                        String incTitle = sc.nextLine();
+                        System.out.print("Enter income amount: ");
+                        double incAmount = sc.nextDouble();
+                        sc.nextLine(); // Consume newline
+                        Income newIncome = new Income(0, incTitle, incAmount, new Date());
+                        incomeDAO.addIncome(newIncome);
+                        System.out.println("Income added successfully!");
                         break;
                     case 6:
-                        // Code to delete an income
+                        System.out.print("Enter income ID to delete: ");
+                        int incomeID = sc.nextInt();
+                        incomeDAO.deleteIncome(incomeID);
+                        System.out.println("Income deleted successfully!");
                         break;
                     case 7:
                         // Code to list income and expenses for a particular month
